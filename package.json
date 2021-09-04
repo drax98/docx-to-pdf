@@ -1,0 +1,52 @@
+{
+  "name": "docx-to-pdf-converter",
+  "version": "0.0.0",
+  "description": "Minimalistic tool to convert docx file to PDF.",
+  "repository": "https://github.com/drax98/docx-to-pdf",
+  "engines": {
+    "node": ">= 14.16 <15"
+  },
+  "files": ["dist"],
+  "devDependencies": {
+    "@types/duplexify": "^3.6.0",
+    "@types/jest": "~26.0.23",
+    "@types/node": "~14.14.45",
+    "@types/tar-fs": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "~4.28.2",
+    "@typescript-eslint/parser": "~4.28.2",
+    "eslint": "~7.30.0",
+    "eslint-config-prettier": "~8.3.0",
+    "eslint-plugin-jest": "~24.3.6",
+    "jest": "~27.0.6",
+    "shx": "^0.3.3",
+    "prettier": "~2.3.2",
+    "rimraf": "~3.0.2",
+    "ts-jest": "~27.0.3",
+    "tsutils": "~3.21.0",
+    "typescript": "~4.3.5"
+  },
+  "scripts": {
+    "start": "node build/src/main.js",
+    "clean": "rimraf coverage build tmp",
+    "prebuild": "npm run lint",
+    "postbuild": "shx cp -r src/bin dist/bin",
+    "build": "tsc -p tsconfig.release.json",
+    "build:watch": "tsc -w -p tsconfig.release.json",
+    "prepack": "npm run build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "author": "Arkadiusz Babiarz",
+  "license": "MIT",
+  "dependencies": {
+    "duplexify": "^4.1.2",
+    "reflect-metadata": "^0.1.13",
+    "tar-fs": "^2.1.1",
+    "tslib": "~2.3.0",
+    "tsyringe": "^4.6.0"
+  },
+  "volta": {
+    "node": "14.16.1"
+  }
+}
