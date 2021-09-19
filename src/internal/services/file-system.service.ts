@@ -8,16 +8,16 @@ export class FileSystemService {
   constructor(
     @inject(FilesystemToken)
     private readonly fs: {
-      createReadStream: (filePath) => Readable,
-      createWriteStream: (filePath) => Writable,
-      stat: (filePath, callback) => void
+      createReadStream: (filePath: string) => Readable,
+      createWriteStream: (filePath: string) => Writable,
+      stat: (filePath: string, callback: (err: Error) => void) => void
     },
   ) {
   }
 
   exists(filePath: string): Promise<boolean> {
     return new Promise((resolve) => {
-      this.fs.stat(filePath, (err) => {
+      this.fs.stat(filePath, (err: Error) => {
         if (err) {
           resolve(false);
         }

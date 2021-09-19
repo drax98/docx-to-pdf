@@ -12,11 +12,15 @@ import { extract } from 'tar-fs';
 import { createBrotliDecompress } from 'zlib';
 import * as path from 'path';
 import { spawn } from 'child_process';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const providers: { token: InjectionToken, provider: Provider }[] = [
   {
     token: CurrentRootDir,
-    provider: { useValue: path.join(__dirname, '../') },
+    provider: { useValue: path.join(__dirname, './') },
   },
   {
     token: FilesystemToken,
@@ -32,11 +36,11 @@ const providers: { token: InjectionToken, provider: Provider }[] = [
   },
   {
     token: LoExecutablePathToken,
-    provider: { useValue: path.join(__dirname, '../instdir/program/soffice') },
+    provider: { useValue: path.join(__dirname, './instdir/program/soffice') },
   },
   {
     token: LoCompressedPathToken,
-    provider: { useValue: path.join(__dirname, '../bin/lo.tar.br') },
+    provider: { useValue: path.join(__dirname, './bin/lo.tar.br') },
   },
   {
     token: ChildProcessSpawnerToken,

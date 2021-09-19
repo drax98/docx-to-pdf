@@ -17,7 +17,7 @@ export class LibreofficeRunnerService {
   async convertToPdf(docxFilePath: string, pdfDestinationPath: string) {
     const absoluteDocxFilePath = path.resolve(docxFilePath);
     const absoluteDestinationDirectory = path.resolve(pdfDestinationPath);
-    const splitDestinationPath = path => [...path.matchAll(/(.*\/)*([ \w-]+\.pdf)/gm)][0];
+    const splitDestinationPath = (path: string) => [...path.matchAll(/(.*\/)*([ \w-]+\.pdf)/gm)][0];
 
     const executablePath = await this.loExecutableGetter.getExecutablePath();
     const splittedDestination = splitDestinationPath(absoluteDestinationDirectory);
@@ -27,12 +27,6 @@ export class LibreofficeRunnerService {
   }
 
   private runConvertingProcess(executablePath: string, docxFilePath: string, pdfDestinationFolderPath: string, pdfName: string) {
-    console.log([
-      ...this.libreOfficeArgs,
-      '--convert-to', `${pdfName}`,
-      '--outdir', `${pdfDestinationFolderPath}`,
-      `${docxFilePath}`,
-    ]);
     return new Promise((resolve, reject) => {
       const process = this.commandExecuter.execute(
         executablePath,
